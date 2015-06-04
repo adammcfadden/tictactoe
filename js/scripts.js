@@ -53,15 +53,15 @@ Board.prototype.checkWin = function(player) {
   return false;
 }
 
-function isThisNumber(value, compare) {
-  return value === compare;
-}
-
 function Game(){
   this.player1 = new Player("X");
   this.player2 = new Player("O");
   this.board = new Board();
   this.turn = this.player1;
+  // this.winXYArrayUp = [];
+  // this.winXYArrayDown = [];
+  // this.winXArray = [];
+  // this.winYArray = [];
 }
 
 Game.prototype.changeTurn = function(){
@@ -74,6 +74,59 @@ Game.prototype.changeTurn = function(){
 }
 
 $(function(){
+//META GAME
+  var metaGame = new Game();
+  var turnCount = 0;
+
+  $("#player-turn").text("It's " + metaGame.turn.mark + "'s turn");
+
+  // metaGame.board.spaces.forEach(function(element, index, array){
+  //   $("#grid").append("<div class='space' data-x='" + element.xCoordinate.toString() + "' data-y='" + element.yCoordinate.toString() + "'><span></span></div>");
+  // });
+
+  $(".row").click(function(){
+    turnCount += 1;
+    var player = metaGame.turn;
+    // var xCoordinate = parseInt($(this).data("x"));
+    // var yCoordinate = parseInt($(this).data("y"));
+    // var space = metaGame.board.find(xCoordinate, yCoordinate);
+    // space.markBy(player);
+
+    // $(this).find("span").text(player.mark);
+
+    if ( metaGame.board.checkWin(player) ) {
+      $("h1#winner").text(player.mark + " wins!");
+      $("#player-turn").text("")
+      // $(".space").off();
+      // $("#grid3").text("X");
+    } else if (turnCount < 81){
+      metaGame.changeTurn();
+      // game.changeTurn();
+      // game2.changeTurn();
+      // game3.changeTurn();
+      $("#player-turn").text("It's " + metaGame.turn.mark + "'s turn");
+    }
+    else{
+      $("h1#winner").text("It's a tie!!!");
+      $("#player-turn").text("")
+    }
+    // $(this).off();
+  });
+
+  $("#ai").click(function() {
+    var spacesLeft = metaGame.board.spaces.filter(function(value) {
+      return value.markedBy === "";
+    });
+    var randomIndex = Math.floor(Math.random() * (spacesLeft.length - 1) - 0);
+    var randomSpace = spacesLeft[randomIndex];
+    $(".space[data-x='" + randomSpace.xCoordinate + "'][data-y='" + randomSpace.yCoordinate + "']").click();
+  });
+
+
+//EACH INSTANCE OF GAME
+
+//game1
+
   var game = new Game();
   var turnCount = 0;
 
@@ -82,34 +135,9 @@ $(function(){
   game.board.spaces.forEach(function(element, index, array){
     $("#grid").append("<div class='space' data-x='" + element.xCoordinate.toString() + "' data-y='" + element.yCoordinate.toString() + "'><span></span></div>");
   });
-  game.board.spaces.forEach(function(element, index, array){
-    $("#grid2").append("<div class='space' data-x='" + element.xCoordinate.toString() + "' data-y='" + element.yCoordinate.toString() + "'><span></span></div>");
-  });
-  game.board.spaces.forEach(function(element, index, array){
-    $("#grid3").append("<div class='space' data-x='" + element.xCoordinate.toString() + "' data-y='" + element.yCoordinate.toString() + "'><span></span></div>");
-  });
-  game.board.spaces.forEach(function(element, index, array){
-    $("#grid4").append("<div class='space' data-x='" + element.xCoordinate.toString() + "' data-y='" + element.yCoordinate.toString() + "'><span></span></div>");
-  });
-  game.board.spaces.forEach(function(element, index, array){
-    $("#grid5").append("<div class='space' data-x='" + element.xCoordinate.toString() + "' data-y='" + element.yCoordinate.toString() + "'><span></span></div>");
-  });
-  game.board.spaces.forEach(function(element, index, array){
-    $("#grid6").append("<div class='space' data-x='" + element.xCoordinate.toString() + "' data-y='" + element.yCoordinate.toString() + "'><span></span></div>");
-  });
-  game.board.spaces.forEach(function(element, index, array){
-    $("#grid7").append("<div class='space' data-x='" + element.xCoordinate.toString() + "' data-y='" + element.yCoordinate.toString() + "'><span></span></div>");
-  });
-  game.board.spaces.forEach(function(element, index, array){
-    $("#grid8").append("<div class='space' data-x='" + element.xCoordinate.toString() + "' data-y='" + element.yCoordinate.toString() + "'><span></span></div>");
-  });
-  game.board.spaces.forEach(function(element, index, array){
-    $("#grid9").append("<div class='space' data-x='" + element.xCoordinate.toString() + "' data-y='" + element.yCoordinate.toString() + "'><span></span></div>");
-  });
 
   $(".space").click(function(){
-    turnCount += 1;
-    var player = game.turn;
+var player = metaGame.turn;
     var xCoordinate = parseInt($(this).data("x"));
     var yCoordinate = parseInt($(this).data("y"));
     var space = game.board.find(xCoordinate, yCoordinate);
@@ -121,11 +149,12 @@ $(function(){
       $("h1#winner").text(player.mark + " wins!");
       $("#player-turn").text("")
       $(".space").off();
-    } else if (turnCount < 9){
-      game.changeTurn();
-      $("#player-turn").text("It's " + game.turn.mark + "'s turn");
+      // $("#grid3").text("X");
+    // } else if (turnCount < 9){
+    //   game.changeTurn();
+    //   $("#player-turn").text("It's " + game.turn.mark + "'s turn");
     }
-    else{
+    else if (turnCount === 81){
       $("h1#winner").text("It's a tie!!!");
       $("#player-turn").text("")
     }
@@ -139,5 +168,95 @@ $(function(){
     var randomIndex = Math.floor(Math.random() * (spacesLeft.length - 1) - 0);
     var randomSpace = spacesLeft[randomIndex];
     $(".space[data-x='" + randomSpace.xCoordinate + "'][data-y='" + randomSpace.yCoordinate + "']").click();
+  });
+
+//game 2
+
+  var game2 = new Game();
+  var turnCount2 = 0;
+
+  $("#player-turn").text("It's " + game2.turn.mark + "'s turn");
+
+  game2.board.spaces.forEach(function(element, index, array){
+    $("#grid2").append("<div class='space2' data-x='" + element.xCoordinate.toString() + "' data-y='" + element.yCoordinate.toString() + "'><span></span></div>");
+  });
+
+  $(".space2").click(function(){
+var player2 = metaGame.turn;
+    var xCoordinate2 = parseInt($(this).data("x"));
+    var yCoordinate2 = parseInt($(this).data("y"));
+    var space = game2.board.find(xCoordinate2, yCoordinate2);
+    space.markBy(player2);
+
+    $(this).find("span").text(player2.mark);
+
+    if ( game2.board.checkWin(player2) ) {
+      $("h1#winner").text(player2.mark + " wins!");
+      $("#player-turn").text("")
+      $(".space2").off();
+      // $("#grid2").text("X");
+    // } else if (turnCount2 < 9){
+    //   game2.changeTurn();
+    //   $("#player-turn").text("It's " + game2.turn.mark + "'s turn");
+    }
+    else if (turnCount === 81){
+      $("h1#winner").text("It's a tie!!!");
+      $("#player-turn").text("")
+    }
+    $(this).off();
+  });
+
+  $("#ai").click(function() {
+    var spacesLeft = game2.board.spaces.filter(function(value) {
+      return value.markedBy === "";
+    });
+    var randomIndex = Math.floor(Math.random() * (spacesLeft.length - 1) - 0);
+    var randomSpace = spacesLeft[randomIndex];
+    $(".space2[data-x='" + randomSpace.xCoordinate + "'][data-y='" + randomSpace.yCoordinate + "']").click();
+  });
+
+//game3
+
+  var game3 = new Game();
+  var turnCount3 = 0;
+
+  $("#player-turn").text("It's " + game3.turn.mark + "'s turn");
+
+  game3.board.spaces.forEach(function(element, index, array){
+    $("#grid3").append("<div class='space3' data-x='" + element.xCoordinate.toString() + "' data-y='" + element.yCoordinate.toString() + "'><span></span></div>");
+  });
+
+  $(".space3").click(function(){
+var player3 = metaGame.turn;
+    var xCoordinate3 = parseInt($(this).data("x"));
+    var yCoordinate3 = parseInt($(this).data("y"));
+    var space = game3.board.find(xCoordinate3, yCoordinate3);
+    space.markBy(player3);
+
+    $(this).find("span").text(player3.mark);
+
+    if ( game3.board.checkWin(player3) ) {
+      $("h1#winner").text(player3.mark + " wins!");
+      $("#player-turn").text("")
+      $(".space3").off();
+      // $("#grid3").text("X");
+    // } else if (turnCount3 < 9){
+    //   game3.changeTurn();
+    //   $("#player-turn").text("It's " + game3.turn.mark + "'s turn");
+    }
+    else if (turnCount === 81){
+      $("h1#winner").text("It's a tie!!!");
+      $("#player-turn").text("")
+    }
+    $(this).off();
+  });
+
+  $("#ai").click(function() {
+    var spacesLeft = game3.board.spaces.filter(function(value) {
+      return value.markedBy === "";
+    });
+    var randomIndex = Math.floor(Math.random() * (spacesLeft.length - 1) - 0);
+    var randomSpace = spacesLeft[randomIndex];
+    $(".space3[data-x='" + randomSpace.xCoordinate + "'][data-y='" + randomSpace.yCoordinate + "']").click();
   });
 });
