@@ -2,6 +2,19 @@ body{
 font-family: 'Press Start 2P', cursive;
 background: #3e4ef0;
 text-align: center;
+color: white;
+
+}
+
+.page-header {
+  border-bottom: 10px solid white;
+  color: white;
+}
+
+#game-board {
+  width: 50%;
+  margin: auto;
+  padding-bottom: 20px;
 }
 
 .space {
@@ -16,9 +29,19 @@ text-align: center;
   font-size: 24px;
 }
 
-#grid{
+#grid, #grid2, #grid3, #grid4, #grid5, #grid6, #grid7, #grid8, #grid9 {
   margin: 2rem auto;
   max-width: 150px;
+}
+
+.row {
+  border-top: 5px solid white;
+  border-bottom: 5px solid white;
+}
+
+.col-sm-4 {
+  border-left: 5px solid white;
+  border-right: 5px solid white;
 }
 
 #winner {
@@ -32,7 +55,7 @@ text-align: center;
 
 .custom-button {
   width: 100px;
-  height: 100px;
+  height: 45px;
   background: red;
   margin: 0 auto;
   cursor: pointer;
@@ -44,4 +67,9 @@ text-align: center;
   background: red;
   padding: 5px 0 0 5px;
   box-shadow: 5px 5px #3e4ef0 inset;
+}
+
+.restart, .restart a{
+  color: white;
+  margin-top: 15px;
 }

@@ -33,7 +33,6 @@ Board.prototype.find = function(xCoordinate, yCoordinate){
 
 Board.prototype.checkWin = function(player) {
   var playerSpaces = player.spaces;
-
   for (var i = 1; i <= 3; i ++) {
     var winXYArrayDown = playerSpaces.filter(function(value) {
       return value.xCoordinate === value.yCoordinate;
@@ -82,6 +81,30 @@ $(function(){
 
   game.board.spaces.forEach(function(element, index, array){
     $("#grid").append("<div class='space' data-x='" + element.xCoordinate.toString() + "' data-y='" + element.yCoordinate.toString() + "'><span></span></div>");
+  });
+  game.board.spaces.forEach(function(element, index, array){
+    $("#grid2").append("<div class='space' data-x='" + element.xCoordinate.toString() + "' data-y='" + element.yCoordinate.toString() + "'><span></span></div>");
+  });
+  game.board.spaces.forEach(function(element, index, array){
+    $("#grid3").append("<div class='space' data-x='" + element.xCoordinate.toString() + "' data-y='" + element.yCoordinate.toString() + "'><span></span></div>");
+  });
+  game.board.spaces.forEach(function(element, index, array){
+    $("#grid4").append("<div class='space' data-x='" + element.xCoordinate.toString() + "' data-y='" + element.yCoordinate.toString() + "'><span></span></div>");
+  });
+  game.board.spaces.forEach(function(element, index, array){
+    $("#grid5").append("<div class='space' data-x='" + element.xCoordinate.toString() + "' data-y='" + element.yCoordinate.toString() + "'><span></span></div>");
+  });
+  game.board.spaces.forEach(function(element, index, array){
+    $("#grid6").append("<div class='space' data-x='" + element.xCoordinate.toString() + "' data-y='" + element.yCoordinate.toString() + "'><span></span></div>");
+  });
+  game.board.spaces.forEach(function(element, index, array){
+    $("#grid7").append("<div class='space' data-x='" + element.xCoordinate.toString() + "' data-y='" + element.yCoordinate.toString() + "'><span></span></div>");
+  });
+  game.board.spaces.forEach(function(element, index, array){
+    $("#grid8").append("<div class='space' data-x='" + element.xCoordinate.toString() + "' data-y='" + element.yCoordinate.toString() + "'><span></span></div>");
+  });
+  game.board.spaces.forEach(function(element, index, array){
+    $("#grid9").append("<div class='space' data-x='" + element.xCoordinate.toString() + "' data-y='" + element.yCoordinate.toString() + "'><span></span></div>");
   });
 
   $(".space").click(function(){
